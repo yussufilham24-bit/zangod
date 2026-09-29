@@ -1,2 +1,0 @@
-# zangod
-app
