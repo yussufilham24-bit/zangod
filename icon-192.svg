@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+<rect width="192" height="192" rx="38" fill="#086963"/>
+<path d="M43 67h83L65 110h70" fill="none" stroke="white" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="130" cy="52" r="20" fill="#f7c515"/>
+<circle cx="130" cy="52" r="7" fill="#086963"/>
+<path d="M130 72l-13-20h26z" fill="#f7c515"/>
+<text x="96" y="143" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="bold" fill="white">ZANGO</text>
+<text x="96" y="163" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="#f7c515">RIDE • DELIVERY • TOUR • SOCIAL</text>
+</svg>
