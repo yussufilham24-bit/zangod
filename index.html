@@ -4000,11 +4000,8 @@ startApp
 );
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log('ZANGO Service Worker imeunganishwa'))
-      .catch(err => console.error('SW Error:', err));
-  });
+  window.addEventListener('load', 
+  startApp 
 </script>
 
 </body>
