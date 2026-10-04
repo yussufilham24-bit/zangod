@@ -1,2 +1,4511 @@
+<!DOCTYPE html>
+<html lang="sw">
+  
+<head>
 
-ji
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1">
+
+<meta name="theme-color" content="#f97316">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style"
+content="black-translucent">
+
+<title>ZANGO TZ V5.2</title>
+
+<link rel="manifest" href="/manifest.json">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+html,
+body{
+margin:0;
+padding:0;
+min-height:100%;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f7f7f7;
+color:#111;
+padding-bottom:75px;
+}
+
+button{
+-webkit-tap-highlight-color:transparent;
+}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
+.orange{
+color:#f97316;
+}
+
+.bg-orange{
+background:#f97316;
+}
+
+.navbar{
+position:fixed;
+top:0;
+left:0;
+right:0;
+z-index:50;
+background:#111;
+color:white;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 15px;
+box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+.nav-title{
+font-size:20px;
+font-weight:900;
+}
+
+.nav-sub{
+font-size:10px;
+color:#bbb;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:68px;
+background:#111;
+z-index:100;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid #333;
+}
+
+.bottom-item{
+color:#999;
+font-size:11px;
+text-align:center;
+cursor:pointer;
+}
+
+.bottom-item i{
+display:block;
+font-size:20px;
+margin-bottom:4px;
+}
+
+.bottom-item.active{
+color:#f97316;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+padding:75px 12px 25px;
+}
+
+.hero{
+background:#111;
+color:white;
+border-radius:20px;
+padding:25px 18px;
+margin-bottom:15px;
+overflow:hidden;
+position:relative;
+}
+
+.hero h1{
+font-size:30px;
+font-weight:900;
+line-height:1.05;
+margin:0;
+}
+
+.hero p{
+color:#ccc;
+margin-top:10px;
+font-size:14px;
+}
+
+.hero-badge{
+display:inline-block;
+background:#f97316;
+padding:6px 10px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+margin-bottom:12px;
+}
+
+.service-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
+.service-card{
+background:white;
+border-radius:16px;
+padding:18px 12px;
+box-shadow:0 2px 10px rgba(0,0,0,.06);
+cursor:pointer;
+border:1px solid #eee;
+}
+
+.service-card i{
+font-size:25px;
+color:#f97316;
+margin-bottom:8px;
+}
+
+.service-card h3{
+font-weight:800;
+font-size:14px;
+margin:0;
+}
+
+.service-card p{
+font-size:11px;
+color:#777;
+margin-top:4px;
+}
+
+.vehicle-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:12px;
+}
+
+.vehicle{
+background:#fff;
+border:2px solid #eee;
+border-radius:14px;
+padding:14px 5px;
+text-align:center;
+cursor:pointer;
+}
+
+.vehicle.selected{
+border-color:#f97316;
+background:#fff7ed;
+}
+
+.vehicle i{
+font-size:25px;
+color:#f97316;
+display:block;
+margin-bottom:5px;
+}
+
+.vehicle span{
+font-size:11px;
+font-weight:bold;
+}
+
+.form-card{
+background:white;
+border-radius:18px;
+padding:18px;
+margin-top:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+
+.input{
+width:100%;
+border:1px solid #ddd;
+border-radius:11px;
+padding:12px;
+margin-top:8px;
+margin-bottom:10px;
+outline:none;
+font-size:14px;
+}
+
+.input:focus{
+border-color:#f97316;
+}
+
+.btn{
+width:100%;
+border:none;
+border-radius:12px;
+padding:13px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn-orange{
+background:#f97316;
+color:white;
+}
+
+.btn-black{
+background:#111;
+color:white;
+}
+
+.section-title{
+font-size:20px;
+font-weight:900;
+margin:15px 0 10px;
+}
+
+.card{
+background:white;
+border-radius:16px;
+padding:15px;
+margin-bottom:12px;
+box-shadow:0 2px 9px rgba(0,0,0,.06);
+}
+
+.post-header{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#f97316;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-weight:bold;
+overflow:hidden;
+}
+
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.post-name{
+font-weight:800;
+font-size:14px;
+}
+
+.post-date{
+font-size:10px;
+color:#888;
+}
+
+.post-text{
+font-size:14px;
+line-height:1.5;
+margin:12px 0;
+white-space:pre-wrap;
+}
+
+.post-media{
+width:100%;
+max-height:450px;
+object-fit:cover;
+border-radius:13px;
+margin-top:10px;
+}
+
+.post-actions{
+display:flex;
+gap:18px;
+padding-top:12px;
+border-top:1px solid #eee;
+margin-top:12px;
+}
+
+.post-action{
+background:none;
+border:none;
+font-size:13px;
+color:#555;
+cursor:pointer;
+}
+
+.post-action i{
+margin-right:4px;
+}
+
+.post-action.liked{
+color:#f97316;
+}
+
+.comment-modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+z-index:200;
+align-items:flex-end;
+justify-content:center;
+}
+
+.comment-modal.show{
+display:flex;
+}
+
+.comment-box{
+width:100%;
+max-width:650px;
+background:white;
+border-radius:22px 22px 0 0;
+height:75vh;
+display:flex;
+flex-direction:column;
+}
+
+.comment-head{
+padding:15px;
+border-bottom:1px solid #eee;
+display:flex;
+align-items:center;
+justify-content:space-between;
+font-weight:bold;
+}
+
+.comment-list{
+flex:1;
+overflow-y:auto;
+padding:12px;
+}
+
+.comment-item{
+display:flex;
+gap:9px;
+margin-bottom:14px;
+}
+
+.comment-avatar{
+width:34px;
+height:34px;
+min-width:34px;
+border-radius:50%;
+background:#f97316;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+font-weight:bold;
+}
+
+.comment-content{
+background:#f5f5f5;
+padding:9px 11px;
+border-radius:13px;
+flex:1;
+}
+
+.comment-author{
+font-size:12px;
+font-weight:bold;
+}
+
+.comment-text{
+font-size:13px;
+margin-top:3px;
+white-space:pre-wrap;
+word-break:break-word;
+}
+
+.comment-time{
+font-size:9px;
+color:#999;
+margin-top:4px;
+}
+
+.comment-input-area{
+border-top:1px solid #eee;
+padding:10px;
+display:flex;
+gap:8px;
+}
+
+.comment-input-area input{
+flex:1;
+border:1px solid #ddd;
+border-radius:20px;
+padding:10px 14px;
+outline:none;
+}
+
+.comment-input-area button{
+width:44px;
+height:44px;
+border-radius:50%;
+border:none;
+background:#f97316;
+color:white;
+}
+
+.login-note{
+font-size:12px;
+color:#777;
+padding:10px;
+text-align:center;
+background:#fff7ed;
+}
+
+.profile-card{
+background:#111;
+color:white;
+border-radius:20px;
+padding:25px;
+text-align:center;
+}
+
+.profile-avatar{
+width:85px;
+height:85px;
+border-radius:50%;
+background:#f97316;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:35px;
+font-weight:bold;
+overflow:hidden;
+}
+
+.profile-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.loading{
+position:fixed;
+inset:0;
+background:#111;
+z-index:1000;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.loading-logo{
+font-size:40px;
+font-weight:900;
+color:#f97316;
+}
+
+.spinner{
+width:35px;
+height:35px;
+border:4px solid #444;
+border-top-color:#f97316;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin-top:20px;
+}
+
+.loading-error{
+max-width:330px;
+margin-top:20px;
+color:#ffb4b4;
+font-size:13px;
+line-height:1.5;
+}
+
+.loading-retry{
+margin-top:15px;
+background:#f97316;
+color:white;
+border:0;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+}
+
+@keyframes spin{
+to{
+transform:rotate(360deg);
+}
+}
+
+.success{
+background:#dcfce7;
+color:#166534;
+padding:12px;
+border-radius:10px;
+margin-top:10px;
+font-size:13px;
+}
+
+.error{
+background:#fee2e2;
+color:#991b1b;
+padding:12px;
+border-radius:10px;
+margin-top:10px;
+font-size:13px;
+}
+
+.empty{
+text-align:center;
+color:#888;
+padding:35px 10px;
+font-size:13px;
+}
+
+.video-box{
+background:#000;
+border-radius:15px;
+overflow:hidden;
+}
+
+.video-box video{
+width:100%;
+display:block;
+}
+
+.chat-list{
+padding-bottom:10px;
+}
+
+.chat-message{
+background:#f3f4f6;
+padding:10px;
+border-radius:13px;
+margin-bottom:8px;
+}
+
+.chat-name{
+font-size:11px;
+font-weight:bold;
+color:#f97316;
+}
+
+.chat-text{
+font-size:13px;
+margin-top:3px;
+}
+
+.hidden{
+display:none!important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================================
+     LOADING
+================================ -->
+
+<div id="loadingScreen" class="loading">
+
+<div class="loading-logo">
+ZANGO
+</div>
+
+<div>
+Move • Connect • Discover Zanzibar
+</div>
+
+<div id="loadingStatus">
+Inaanzisha app...
+</div>
+
+<div id="loadingSpinner" class="spinner"></div>
+
+<div id="loadingError" class="loading-error hidden"></div>
+
+<button
+id="loadingRetry"
+class="loading-retry hidden"
+onclick="location.reload()">
+
+Jaribu tena
+
+</button>
+
+</div>
+
+
+<!-- ================================
+     NAVBAR
+================================ -->
+
+<div class="navbar">
+
+<div>
+
+<div class="nav-title">
+ZANGO TZ
+</div>
+
+<div class="nav-sub">
+Move • Connect • Discover Zanzibar
+</div>
+
+</div>
+
+<div id="authTopButton">
+
+<button
+onclick="showPage('profile')"
+class="text-orange-500 text-xl">
+
+<i class="fa-solid fa-user-circle"></i>
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ================================
+     HOME
+================================ -->
+
+<section id="page-mwanzo" class="page">
+
+<div class="container">
+
+<div class="hero">
+
+<div class="hero-badge">
+ZANGO TZ V5.2
+</div>
+
+<h1>
+Safari ya haraka.<br>
+Zanzibar nzima.
+</h1>
+
+<p>
+Agiza usafiri, delivery, tour na huduma za harusi kupitia ZANGO.
+</p>
+
+</div>
+
+
+<div class="section-title">
+Chagua Usafiri
+</div>
+
+<div class="vehicle-grid">
+
+<div
+class="vehicle selected"
+id="vehicle-Taxi"
+onclick="selectVehicle('Taxi')">
+
+<i class="fa-solid fa-car"></i>
+
+<span>Taxi</span>
+
+</div>
+
+<div
+class="vehicle"
+id="vehicle-Bajaji"
+onclick="selectVehicle('Bajaji')">
+
+<i class="fa-solid fa-truck"></i>
+
+<span>Bajaji</span>
+
+</div>
+
+<div
+class="vehicle"
+id="vehicle-Bodaboda"
+onclick="selectVehicle('Bodaboda')">
+
+<i class="fa-solid fa-motorcycle"></i>
+
+<span>Bodaboda</span>
+
+</div>
+
+</div>
+
+
+<div class="form-card">
+
+<h3 class="font-bold text-lg">
+Agiza Usafiri
+</h3>
+
+<input
+id="rideName"
+class="input"
+placeholder="Jina lako">
+
+<input
+id="ridePhone"
+class="input"
+placeholder="Namba ya simu">
+
+<input
+id="ridePickup"
+class="input"
+placeholder="Unapoanzia">
+
+<input
+id="rideDestination"
+class="input"
+placeholder="Unapokwenda">
+
+<button
+onclick="orderRide()"
+class="btn btn-orange">
+
+<i class="fa-solid fa-paper-plane"></i>
+Tuma Order
+
+</button>
+
+<div id="rideMessage"></div>
+
+</div>
+
+
+<div class="section-title">
+Huduma za ZANGO
+</div>
+
+<div class="service-grid">
+
+<div
+class="service-card"
+onclick="showPage('delivery')">
+
+<i class="fa-solid fa-box"></i>
+
+<h3>Delivery</h3>
+
+<p>Tuma mzigo Zanzibar nzima.</p>
+
+</div>
+
+
+<div
+class="service-card"
+onclick="showPage('tour')">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+<h3>ZANGO Tour</h3>
+
+<p>Discover Zanzibar Like a Local.</p>
+
+</div>
+
+
+<div
+class="service-card"
+onclick="showPage('wedding')">
+
+<i class="fa-solid fa-heart"></i>
+
+<h3>Wedding</h3>
+
+<p>Usafiri wa harusi na bwana harusi.</p>
+
+</div>
+
+
+<div
+class="service-card"
+onclick="showPage('social')">
+
+<i class="fa-solid fa-users"></i>
+
+<h3>ZANGO Social</h3>
+
+<p>Post, like na comment.</p>
+
+</div>
+
+</div>
+
+
+<div class="card mt-4">
+
+<div class="flex items-center gap-3">
+
+<div class="avatar">
+YM
+</div>
+
+<div>
+
+<div class="font-bold">
+Yussuf Mkubwa
+</div>
+
+<div class="text-xs text-gray-500">
+CEO & Founder — ZANGO
+</div>
+
+</div>
+
+</div>
+
+<p class="text-sm text-gray-600 mt-3">
+Karibu ZANGO — huduma ya usafiri na platform
+ya kuunganisha Zanzibar.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     DELIVERY
+================================ -->
+
+<section id="page-delivery" class="page">
+
+<div class="container">
+
+<div class="section-title">
+<i class="fa-solid fa-box orange"></i>
+Delivery
+</div>
+
+<div class="form-card">
+
+<input
+id="deliveryName"
+class="input"
+placeholder="Jina lako">
+
+<input
+id="deliveryPhone"
+class="input"
+placeholder="Namba yako">
+
+<input
+id="deliveryReceiver"
+class="input"
+placeholder="Jina la anayepokea">
+
+<input
+id="deliveryReceiverPhone"
+class="input"
+placeholder="Namba ya anayepokea">
+
+<input
+id="deliveryPickup"
+class="input"
+placeholder="Mzigo unachukuliwa wapi?">
+
+<input
+id="deliveryDestination"
+class="input"
+placeholder="Unapelekwa wapi?">
+
+<textarea
+id="deliveryDetails"
+class="input"
+rows="3"
+placeholder="Maelezo ya mzigo"></textarea>
+
+<button
+onclick="sendDelivery()"
+class="btn btn-orange">
+
+Tuma Delivery
+
+</button>
+
+<div id="deliveryMessage"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     TOUR
+================================ -->
+
+<section id="page-tour" class="page">
+
+<div class="container">
+
+<div class="section-title">
+<i class="fa-solid fa-map orange"></i>
+ZANGO Tour
+</div>
+
+<div class="card">
+
+<h2 class="text-xl font-black">
+Discover Zanzibar Like a Local
+</h2>
+
+<p class="text-sm text-gray-600 mt-2">
+Tunakusaidia kugundua maeneo mazuri,
+restaurants, beaches na activities Zanzibar.
+</p>
+
+</div>
+
+
+<div class="form-card">
+
+<input
+id="tourName"
+class="input"
+placeholder="Jina lako">
+
+<input
+id="tourPhone"
+class="input"
+placeholder="Namba ya simu">
+
+<input
+id="tourPeople"
+type="number"
+class="input"
+placeholder="Idadi ya watu">
+
+<input
+id="tourDays"
+type="number"
+class="input"
+placeholder="Idadi ya siku">
+
+<input
+id="tourPlace"
+class="input"
+placeholder="Sehemu unayotaka kutembelea">
+
+<textarea
+id="tourDetails"
+class="input"
+rows="4"
+placeholder="Maelezo / mahitaji yako"></textarea>
+
+<button
+onclick="bookTour()"
+class="btn btn-orange">
+
+<i class="fa-solid fa-map-location-dot"></i>
+Omba Tour
+
+</button>
+
+<div id="tourMessage"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     WEDDING
+================================ -->
+
+<section id="page-wedding" class="page">
+
+<div class="container">
+
+<div class="section-title">
+<i class="fa-solid fa-heart orange"></i>
+Wedding Transport
+</div>
+
+<div class="card">
+
+<h2 class="font-black text-xl">
+Usafiri wa Harusi
+</h2>
+
+<p class="text-sm text-gray-600 mt-2">
+ZANGO inapatikana kwa usafiri wa bwana harusi,
+familia na wageni.
+</p>
+
+</div>
+
+
+<div class="form-card">
+
+<input
+id="weddingName"
+class="input"
+placeholder="Jina lako">
+
+<input
+id="weddingPhone"
+class="input"
+placeholder="Namba ya simu">
+
+<input
+id="weddingDate"
+type="date"
+class="input">
+
+<input
+id="weddingLocation"
+class="input"
+placeholder="Sehemu ya harusi">
+
+<textarea
+id="weddingDetails"
+class="input"
+rows="4"
+placeholder="Maelezo ya usafiri"></textarea>
+
+<button
+onclick="sendWedding()"
+class="btn btn-orange">
+
+<i class="fa-solid fa-heart"></i>
+Omba Wedding Transport
+
+</button>
+
+<div id="weddingMessage"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     SOCIAL
+================================ -->
+
+<section id="page-social" class="page">
+
+<div class="container">
+
+<div class="flex items-center justify-between mb-3">
+
+<div>
+
+<div class="section-title mb-0">
+ZANGO Social
+</div>
+
+<div class="text-xs text-gray-500">
+Connect • Share • Discover
+</div>
+
+</div>
+
+<button
+onclick="showPage('profile')"
+class="bg-black text-white rounded-full px-4 py-2 text-xs">
+
+<i class="fa-solid fa-user"></i>
+Profile
+
+</button>
+
+</div>
+
+
+<div
+id="createPostBox"
+class="card">
+
+<textarea
+id="postText"
+class="input"
+rows="3"
+placeholder="Unafikiria nini kuhusu Zanzibar?"></textarea>
+
+<input
+id="postImage"
+type="file"
+accept="image/*"
+class="text-xs mb-2">
+
+<div id="postPreview"></div>
+
+<button
+onclick="createPost()"
+class="btn btn-orange">
+
+<i class="fa-solid fa-paper-plane"></i>
+Post
+
+</button>
+
+<div id="postMessage"></div>
+
+</div>
+
+
+<div id="postsContainer">
+
+<div class="empty">
+Inapakia posts...
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     VIDEO
+================================ -->
+
+<section id="page-video" class="page">
+
+<div class="container">
+
+<div class="section-title">
+<i class="fa-solid fa-video orange"></i>
+ZANGO Video
+</div>
+
+<div class="card">
+
+<p class="text-sm text-gray-600 mb-3">
+Video za ZANGO zitaonekana hapa.
+</p>
+
+<input
+id="videoFile"
+type="file"
+accept="video/*"
+class="text-xs mb-3">
+
+<button
+onclick="uploadVideo()"
+class="btn btn-orange">
+
+Upload Video
+
+</button>
+
+<div id="videoMessage"></div>
+
+</div>
+
+<div id="videosContainer"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     CHAT
+================================ -->
+
+<section id="page-chat" class="page">
+
+<div class="container">
+
+<div class="section-title">
+<i class="fa-solid fa-comments orange"></i>
+ZANGO Chat
+</div>
+
+<div
+id="chatList"
+class="chat-list card">
+
+<div class="empty">
+Hakuna ujumbe bado.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<input
+id="chatInput"
+class="input"
+placeholder="Andika ujumbe...">
+
+<button
+onclick="sendChat()"
+class="btn btn-orange">
+
+Tuma
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     PROFILE
+================================ -->
+
+<section id="page-profile" class="page">
+
+<div class="container">
+
+<div class="profile-card">
+
+<div
+id="profileAvatar"
+class="profile-avatar">
+
+YM
+
+</div>
+
+<h2
+id="profileName"
+class="text-xl font-black mt-3">
+
+Yussuf Mkubwa
+
+</h2>
+
+<p
+id="profileRole"
+class="text-sm text-gray-300">
+
+CEO & Founder — ZANGO
+
+</p>
+
+</div>
+
+
+<div
+id="loggedOutBox"
+class="form-card">
+
+<h3 class="font-bold text-lg">
+Jiunge na ZANGO Social
+</h3>
+
+<p class="text-xs text-gray-500 mt-1">
+Tengeneza account ili uweze kupost,
+like na comment.
+</p>
+
+<input
+id="authEmail"
+type="email"
+class="input"
+placeholder="Email">
+
+<input
+id="authPassword"
+type="password"
+class="input"
+placeholder="Password">
+
+<input
+id="authName"
+class="input"
+placeholder="Jina lako">
+
+<button
+onclick="signUp()"
+class="btn btn-orange">
+
+Jisajili
+
+</button>
+
+<button
+onclick="signIn()"
+class="btn btn-black mt-2">
+
+Ingia
+
+</button>
+
+<div id="authMessage"></div>
+
+</div>
+
+
+<div
+id="loggedInBox"
+class="form-card hidden">
+
+<h3 class="font-bold">
+Umeingia ZANGO Social
+</h3>
+
+<p
+id="loggedInEmail"
+class="text-xs text-gray-500 mt-1">
+</p>
+
+<button
+onclick="signOut()"
+class="btn btn-black mt-4">
+
+Toka
+
+</button>
+
+</div>
+
+
+<div class="card mt-4">
+
+<h3 class="font-bold">
+Wasiliana na ZANGO
+</h3>
+
+<p class="text-sm text-gray-600 mt-2">
+0772530367
+</p>
+
+<button
+onclick="openWhatsApp('Habari ZANGO, nahitaji huduma.')"
+class="btn btn-orange mt-3">
+
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp ZANGO
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================
+     COMMENTS MODAL
+================================ -->
+
+<div
+id="commentModal"
+class="comment-modal">
+
+<div class="comment-box">
+
+<div class="comment-head">
+
+<div>
+Comments
+<span id="commentCountTitle">
+(0)
+</span>
+</div>
+
+<button
+onclick="closeComments()"
+class="text-xl">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+
+<div
+id="commentLoginNote"
+class="login-note hidden">
+
+Ingia kwanza ili uweze ku-comment.
+
+</div>
+
+
+<div
+id="commentList"
+class="comment-list">
+
+</div>
+
+
+<div class="comment-input-area">
+
+<input
+id="commentInput"
+placeholder="Andika comment...">
+
+<button
+id="commentSendButton"
+onclick="sendComment()">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================================
+     BOTTOM NAV
+================================ -->
+
+<div class="bottom-nav">
+
+<div
+id="nav-home"
+class="bottom-item active"
+onclick="showPage('mwanzo')">
+
+<i class="fa-solid fa-house"></i>
+Home
+
+</div>
+
+<div
+id="nav-social"
+class="bottom-item"
+onclick="showPage('social')">
+
+<i class="fa-solid fa-users"></i>
+Social
+
+</div>
+
+<div
+id="nav-video"
+class="bottom-item"
+onclick="showPage('video')">
+
+<i class="fa-solid fa-video"></i>
+Video
+
+</div>
+
+<div
+id="nav-chat"
+class="bottom-item"
+onclick="showPage('chat')">
+
+<i class="fa-solid fa-comments"></i>
+Chat
+
+</div>
+
+<div
+id="nav-profile"
+class="bottom-item"
+onclick="showPage('profile')">
+
+<i class="fa-solid fa-user"></i>
+Mimi
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ==================================================
+   ZANGO CONFIG
+================================================== */
+
+const SUPABASE_URL =
+"https://jduucngescmnakomfhbm.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_r2eBxGlRDwsJXlISnQ1a6Q_S1M5uDIC";
+
+let supabaseClient = null;
+let currentUser = null;
+let selectedVehicle = "Taxi";
+let currentCommentPostId = null;
+let realtimeChannel = null;
+let postImageData = "";
+
+
+/* ==================================================
+   LOADING HELPERS
+================================================== */
+
+function setLoadingStatus(text){
+
+const element =
+document.getElementById("loadingStatus");
+
+if(element){
+element.textContent = text;
+}
+
+}
+
+
+function hideLoading(){
+
+const loading =
+document.getElementById("loadingScreen");
+
+if(loading){
+loading.style.display = "none";
+}
+
+}
+
+
+function showLoadingError(message){
+
+const spinner =
+document.getElementById("loadingSpinner");
+
+const error =
+document.getElementById("loadingError");
+
+const retry =
+document.getElementById("loadingRetry");
+
+if(spinner){
+spinner.style.display = "none";
+}
+
+if(error){
+
+error.classList.remove("hidden");
+
+error.textContent = message;
+
+}
+
+if(retry){
+retry.classList.remove("hidden");
+}
+
+}
+
+
+/* ==================================================
+   SUPABASE
+================================================== */
+
+async function initSupabase(){
+
+try{
+
+if(!window.supabase){
+
+throw new Error(
+"Supabase library haijapakia."
+);
+
+}
+
+supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+return true;
+
+}catch(error){
+
+console.error(
+"Supabase initialization error:",
+error
+);
+
+return false;
+
+}
+
+}
+
+
+/* ==================================================
+   PAGE NAVIGATION
+================================================== */
+
+function showPage(page){
+
+document
+.querySelectorAll(".page")
+.forEach(function(p){
+
+p.classList.remove("active");
+
+});
+
+
+const target =
+document.getElementById(
+"page-"+page
+);
+
+
+if(target){
+
+target.classList.add("active");
+
+}
+
+
+document
+.querySelectorAll(".bottom-item")
+.forEach(function(item){
+
+item.classList.remove("active");
+
+});
+
+
+const nav =
+document.getElementById(
+"nav-"+page
+);
+
+
+if(nav){
+
+nav.classList.add("active");
+
+}
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+
+if(page === "social"){
+
+renderPosts()
+.catch(function(error){
+
+console.error(
+"Social render error:",
+error
+);
+
+});
+
+}
+
+if(page === "video"){
+
+renderVideos()
+.catch(function(error){
+
+console.error(
+"Video render error:",
+error
+);
+
+});
+
+}
+
+if(page === "chat"){
+
+renderChats()
+.catch(function(error){
+
+console.error(
+"Chat render error:",
+error
+);
+
+});
+
+}
+
+}
+
+
+/* ==================================================
+   VEHICLE
+================================================== */
+
+function selectVehicle(vehicle){
+
+selectedVehicle = vehicle;
+
+document
+.querySelectorAll(".vehicle")
+.forEach(function(v){
+
+v.classList.remove("selected");
+
+});
+
+
+const selected =
+document.getElementById(
+"vehicle-"+vehicle
+);
+
+
+if(selected){
+
+selected.classList.add("selected");
+
+}
+
+}
+
+
+/* ==================================================
+   WHATSAPP
+================================================== */
+
+function openWhatsApp(message){
+
+  const phone = "255772530367";
+
+  const url =
+    "https://api.whatsapp.com/send?phone=" +
+    phone +
+    "&text=" +
+    encodeURIComponent(message);
+
+  window.location.href = url;
+
+}
+
+
+/* ==================================================
+   RIDE
+================================================== */
+
+async function orderRide(){
+
+if(!supabaseClient){
+
+return;
+
+}
+
+const name =
+document.getElementById("rideName")
+.value.trim();
+
+const phone =
+document.getElementById("ridePhone")
+.value.trim();
+
+const pickup =
+document.getElementById("ridePickup")
+.value.trim();
+
+const destination =
+document.getElementById("rideDestination")
+.value.trim();
+
+const message =
+document.getElementById("rideMessage");
+
+
+if(!name ||
+!phone ||
+!pickup ||
+!destination){
+
+message.innerHTML =
+'<div class="error">Jaza taarifa zote.</div>';
+
+return;
+
+}
+
+
+try{
+
+const {error} =
+await supabaseClient
+.from("zango_orders")
+.insert({
+
+order_type:"ride",
+customer_name:name,
+phone:phone,
+pickup:pickup,
+destination:destination,
+vehicle:selectedVehicle,
+status:"pending"
+
+});
+
+
+if(error){
+
+throw error;
+
+}
+
+
+message.innerHTML =
+'<div class="success">Order imepokelewa. Tunaendelea na WhatsApp.</div>';
+
+
+openWhatsApp(
+"ZANGO RIDE ORDER\n\n"+
+"Jina: "+name+
+"\nSimu: "+phone+
+"\nPickup: "+pickup+
+"\nDestination: "+destination+
+"\nVehicle: "+selectedVehicle
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   DELIVERY
+================================================== */
+
+async function sendDelivery(){
+
+const name =
+document.getElementById("deliveryName")
+.value.trim();
+
+const phone =
+document.getElementById("deliveryPhone")
+.value.trim();
+
+const receiver =
+document.getElementById("deliveryReceiver")
+.value.trim();
+
+const receiverPhone =
+document.getElementById("deliveryReceiverPhone")
+.value.trim();
+
+const pickup =
+document.getElementById("deliveryPickup")
+.value.trim();
+
+const destination =
+document.getElementById("deliveryDestination")
+.value.trim();
+
+const details =
+document.getElementById("deliveryDetails")
+.value.trim();
+
+const message =
+document.getElementById("deliveryMessage");
+
+
+if(!name ||
+!phone ||
+!receiver ||
+!receiverPhone ||
+!pickup ||
+!destination){
+
+message.innerHTML =
+'<div class="error">Jaza taarifa zote muhimu.</div>';
+
+return;
+
+}
+
+
+try{
+
+const {error} =
+await supabaseClient
+.from("zango_orders")
+.insert({
+
+order_type:"delivery",
+customer_name:name,
+phone:phone,
+pickup:pickup,
+destination:destination,
+receiver_name:receiver,
+receiver_phone:receiverPhone,
+details:details,
+status:"pending"
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+message.innerHTML =
+'<div class="success">Delivery imepokelewa.</div>';
+
+
+openWhatsApp(
+"ZANGO DELIVERY\n\n"+
+"Jina: "+name+
+"\nSimu: "+phone+
+"\nReceiver: "+receiver+
+"\nReceiver Phone: "+receiverPhone+
+"\nPickup: "+pickup+
+"\nDestination: "+destination+
+"\nDetails: "+details
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   TOUR
+================================================== */
+
+async function bookTour(){
+
+const name =
+document.getElementById("tourName")
+.value.trim();
+
+const phone =
+document.getElementById("tourPhone")
+.value.trim();
+
+const people =
+document.getElementById("tourPeople").value;
+
+const days =
+document.getElementById("tourDays").value;
+
+const place =
+document.getElementById("tourPlace")
+.value.trim();
+
+const details =
+document.getElementById("tourDetails")
+.value.trim();
+
+const message =
+document.getElementById("tourMessage");
+
+
+if(!name || !phone){
+
+message.innerHTML =
+'<div class="error">Jaza jina na simu.</div>';
+
+return;
+
+}
+
+
+const tourDetails =
+"People: "+people+
+"\nDays: "+days+
+"\nPlace: "+place+
+"\nDetails: "+details;
+
+
+try{
+
+const {error} =
+await supabaseClient
+.from("zango_orders")
+.insert({
+
+order_type:"tour",
+customer_name:name,
+phone:phone,
+details:tourDetails,
+status:"pending"
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+message.innerHTML =
+'<div class="success">Tour request imepokelewa.</div>';
+
+
+openWhatsApp(
+"ZANGO TOUR\n\n"+
+"Jina: "+name+
+"\nSimu: "+phone+
+"\nPeople: "+people+
+"\nDays: "+days+
+"\nPlace: "+place+
+"\nDetails: "+details
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   WEDDING
+================================================== */
+
+async function sendWedding(){
+
+const name =
+document.getElementById("weddingName")
+.value.trim();
+
+const phone =
+document.getElementById("weddingPhone")
+.value.trim();
+
+const date =
+document.getElementById("weddingDate").value;
+
+const location =
+document.getElementById("weddingLocation")
+.value.trim();
+
+const details =
+document.getElementById("weddingDetails")
+.value.trim();
+
+const message =
+document.getElementById("weddingMessage");
+
+
+if(!name ||
+!phone ||
+!date ||
+!location){
+
+message.innerHTML =
+'<div class="error">Jaza taarifa zote muhimu.</div>';
+
+return;
+
+}
+
+
+try{
+
+const {error} =
+await supabaseClient
+.from("zango_orders")
+.insert({
+
+order_type:"wedding",
+customer_name:name,
+phone:phone,
+order_date:date,
+details:
+"Location: "+location+
+"\n"+details,
+status:"pending"
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+message.innerHTML =
+'<div class="success">Wedding request imepokelewa.</div>';
+
+
+openWhatsApp(
+"ZANGO WEDDING TRANSPORT\n\n"+
+"Jina: "+name+
+"\nSimu: "+phone+
+"\nDate: "+date+
+"\nLocation: "+location+
+"\nDetails: "+details
+);
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   AUTH
+================================================== */
+
+async function signUp(){
+
+const email =
+document.getElementById("authEmail")
+.value.trim();
+
+const password =
+document.getElementById("authPassword")
+.value;
+
+const name =
+document.getElementById("authName")
+.value.trim();
+
+const message =
+document.getElementById("authMessage");
+
+
+if(!email ||
+!password ||
+!name){
+
+message.innerHTML =
+'<div class="error">Jaza taarifa zote.</div>';
+
+return;
+
+}
+
+
+try{
+
+const {data,error} =
+await supabaseClient.auth.signUp({
+
+email:email,
+
+password:password,
+
+options:{
+data:{
+name:name
+}
+}
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+if(data.user){
+
+await ensureProfile(
+data.user,
+name
+);
+
+}
+
+
+message.innerHTML =
+'<div class="success">Usajili umefanikiwa. Angalia email kama confirmation inahitajika.</div>';
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+async function signIn(){
+
+const email =
+document.getElementById("authEmail")
+.value.trim();
+
+const password =
+document.getElementById("authPassword")
+.value;
+
+const message =
+document.getElementById("authMessage");
+
+
+try{
+
+const {data,error} =
+await supabaseClient.auth
+.signInWithPassword({
+
+email:email,
+password:password
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+currentUser =
+data.user;
+
+
+await ensureProfile(
+currentUser,
+currentUser.user_metadata?.name ||
+"ZANGO User"
+);
+
+
+await updateAuthUI();
+
+message.innerHTML =
+'<div class="success">Umeingia ZANGO.</div>';
+
+
+renderPosts()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+async function signOut(){
+
+try{
+
+await supabaseClient.auth.signOut();
+
+currentUser = null;
+
+await updateAuthUI();
+
+renderPosts()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/* ==================================================
+   PROFILE
+================================================== */
+
+async function ensureProfile(
+user,
+name
+){
+
+if(!user){
+return;
+}
+
+
+try{
+
+const {data,error} =
+await supabaseClient
+.from("zango_profiles")
+.select("*")
+.eq("id",user.id)
+.maybeSingle();
+
+
+if(error){
+
+console.error(error);
+
+return;
+
+}
+
+
+if(!data){
+
+const result =
+await supabaseClient
+.from("zango_profiles")
+.insert({
+
+id:user.id,
+name:name,
+email:user.email
+
+});
+
+
+if(result.error){
+
+console.error(result.error);
+
+}
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+async function getUserProfile(){
+
+if(!currentUser){
+return null;
+}
+
+
+const {data,error} =
+await supabaseClient
+.from("zango_profiles")
+.select("*")
+.eq("id",currentUser.id)
+.maybeSingle();
+
+
+if(error){
+
+console.error(error);
+
+return null;
+
+}
+
+
+return data;
+
+}
+
+
+async function updateAuthUI(){
+
+const loggedOut =
+document.getElementById("loggedOutBox");
+
+const loggedIn =
+document.getElementById("loggedInBox");
+
+const email =
+document.getElementById("loggedInEmail");
+
+const profileName =
+document.getElementById("profileName");
+
+
+if(!loggedOut ||
+!loggedIn ||
+!email ||
+!profileName){
+
+return;
+
+}
+
+
+if(currentUser){
+
+loggedOut.classList.add("hidden");
+
+loggedIn.classList.remove("hidden");
+
+email.textContent =
+currentUser.email || "";
+
+
+const profile =
+await getUserProfile();
+
+
+if(profile){
+
+profileName.textContent =
+profile.name ||
+"ZANGO User";
+
+}
+
+}else{
+
+loggedOut.classList.remove("hidden");
+
+loggedIn.classList.add("hidden");
+
+profileName.textContent =
+"Yussuf Mkubwa";
+
+}
+
+}
+
+
+/* ==================================================
+   CREATE POST IMAGE
+================================================== */
+
+document
+.getElementById("postImage")
+.addEventListener(
+"change",
+async function(){
+
+const file =
+this.files[0];
+
+if(!file){
+
+postImageData = "";
+
+document.getElementById(
+"postPreview"
+).innerHTML = "";
+
+return;
+
+}
+
+
+try{
+
+postImageData =
+await fileToDataURL(file);
+
+
+document.getElementById(
+"postPreview"
+).innerHTML =
+
+'<img src="'+
+escapeAttribute(postImageData)+
+'" class="post-media">';
+
+
+}catch(error){
+
+console.error(error);
+
+}
+
+});
+
+
+/* ==================================================
+   CREATE POST
+================================================== */
+
+async function createPost(){
+
+if(!currentUser){
+
+alert(
+"Ingia kwanza ili uweze kupost."
+);
+
+showPage("profile");
+
+return;
+
+}
+
+
+const text =
+document.getElementById("postText")
+.value.trim();
+
+const message =
+document.getElementById("postMessage");
+
+
+if(!text && !postImageData){
+
+message.innerHTML =
+'<div class="error">Andika post au chagua picha.</div>';
+
+return;
+
+}
+
+
+try{
+
+const profile =
+await getUserProfile();
+
+const name =
+profile?.name ||
+currentUser.user_metadata?.name ||
+"ZANGO User";
+
+
+const {error} =
+await supabaseClient
+.from("zango_posts")
+.insert({
+
+name:name,
+user_id:currentUser.id,
+text:text,
+media_url:postImageData || null,
+likes:0
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+document.getElementById(
+"postText"
+).value = "";
+
+document.getElementById(
+"postImage"
+).value = "";
+
+document.getElementById(
+"postPreview"
+).innerHTML = "";
+
+postImageData = "";
+
+
+message.innerHTML =
+'<div class="success">Post imechapishwa.</div>';
+
+
+renderPosts()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   RENDER POSTS
+================================================== */
+
+async function renderPosts(){
+
+const container =
+document.getElementById(
+"postsContainer"
+);
+
+
+if(!container ||
+!supabaseClient){
+
+return;
+
+}
+
+
+try{
+
+const {data,error} =
+await supabaseClient
+.from("zango_posts")
+.select("*")
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+
+if(error){
+throw error;
+}
+
+
+if(!data ||
+data.length === 0){
+
+container.innerHTML =
+'<div class="empty">Hakuna post bado. Kuwa wa kwanza kupost!</div>';
+
+return;
+
+}
+
+
+let html = "";
+
+
+for(const post of data){
+
+const count =
+await getCommentCount(post.id);
+
+const liked =
+await hasLiked(post.id);
+
+
+const media =
+post.media_url
+?
+'<img src="'+
+escapeAttribute(post.media_url)+
+'" class="post-media">'
+:
+"";
+
+
+html += `
+
+<div class="card">
+
+<div class="post-header">
+
+<div class="avatar">
+
+${escapeHTML(
+(post.name || "Z")
+.substring(0,2)
+.toUpperCase()
+)}
+
+</div>
+
+<div>
+
+<div class="post-name">
+${escapeHTML(
+post.name || "ZANGO User"
+)}
+</div>
+
+<div class="post-date">
+${formatDate(post.created_at)}
+</div>
+
+</div>
+
+</div>
+
+<div class="post-text">
+${escapeHTML(post.text || "")}
+</div>
+
+${media}
+
+<div class="post-actions">
+
+<button
+class="post-action ${liked ? "liked":""}"
+onclick="toggleLike('${post.id}')">
+
+<i class="fa-solid fa-heart"></i>
+
+<span id="like-count-${post.id}">
+${post.likes || 0}
+</span>
+
+</button>
+
+
+<button
+class="post-action"
+onclick="openComments('${post.id}')">
+
+<i class="fa-solid fa-comment"></i>
+
+<span id="comment-count-${post.id}">
+${count}
+</span>
+
+</button>
+
+
+<button
+class="post-action"
+onclick="sharePost('${post.id}')">
+
+<i class="fa-solid fa-share"></i>
+
+Share
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+container.innerHTML = html;
+
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   COMMENTS COUNT
+================================================== */
+
+async function getCommentCount(postId){
+
+try{
+
+const {count,error} =
+await supabaseClient
+.from("zango_comments")
+.select("*",{
+count:"exact",
+head:true
+})
+.eq("post_id",postId);
+
+
+if(error){
+
+console.error(error);
+
+return 0;
+
+}
+
+
+return count || 0;
+
+
+}catch(error){
+
+console.error(error);
+
+return 0;
+
+}
+
+}
+
+
+/* ==================================================
+   LIKES
+================================================== */
+
+async function hasLiked(postId){
+
+if(!currentUser){
+return false;
+}
+
+
+try{
+
+const {data,error} =
+await supabaseClient
+.from("zango_post_likes")
+.select("id")
+.eq("post_id",postId)
+.eq("user_id",currentUser.id)
+.maybeSingle();
+
+
+if(error){
+
+console.error(error);
+
+return false;
+
+}
+
+
+return !!data;
+
+
+}catch(error){
+
+console.error(error);
+
+return false;
+
+}
+
+}
+
+
+async function toggleLike(postId){
+
+if(!currentUser){
+
+alert(
+"Ingia kwanza ili uweze Like."
+);
+
+showPage("profile");
+
+return;
+
+}
+
+
+try{
+
+const liked =
+await hasLiked(postId);
+
+
+if(liked){
+
+await supabaseClient
+.from("zango_post_likes")
+.delete()
+.eq("post_id",postId)
+.eq("user_id",currentUser.id);
+
+}else{
+
+await supabaseClient
+.from("zango_post_likes")
+.insert({
+
+post_id:postId,
+user_id:currentUser.id
+
+});
+
+}
+
+
+await updatePostLikeCount(postId);
+
+renderPosts()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+async function updatePostLikeCount(postId){
+
+const {count,error} =
+await supabaseClient
+.from("zango_post_likes")
+.select("*",{
+count:"exact",
+head:true
+})
+.eq("post_id",postId);
+
+
+if(error){
+
+console.error(error);
+
+return;
+
+}
+
+
+await supabaseClient
+.from("zango_posts")
+.update({
+likes:count || 0
+})
+.eq("id",postId);
+
+}
+
+
+/* ==================================================
+   COMMENTS
+================================================== */
+
+async function openComments(postId){
+
+currentCommentPostId =
+postId;
+
+
+document
+.getElementById("commentModal")
+.classList.add("show");
+
+
+const input =
+document.getElementById("commentInput");
+
+const send =
+document.getElementById("commentSendButton");
+
+const note =
+document.getElementById("commentLoginNote");
+
+
+if(currentUser){
+
+input.disabled = false;
+
+send.disabled = false;
+
+note.classList.add("hidden");
+
+}else{
+
+input.disabled = true;
+
+send.disabled = true;
+
+note.classList.remove("hidden");
+
+}
+
+
+await renderComments();
+
+}
+
+
+function closeComments(){
+
+document
+.getElementById("commentModal")
+.classList.remove("show");
+
+
+currentCommentPostId = null;
+
+
+document.getElementById(
+"commentInput"
+).value = "";
+
+}
+
+
+/* ==================================================
+   RENDER COMMENTS
+================================================== */
+
+async function renderComments(){
+
+if(!currentCommentPostId){
+return;
+}
+
+
+const list =
+document.getElementById(
+"commentList"
+);
+
+
+list.innerHTML =
+'<div class="empty">Inapakia comments...</div>';
+
+
+try{
+
+const {data,error} =
+await supabaseClient
+.from("zango_comments")
+.select("*")
+.eq("post_id",currentCommentPostId)
+.order(
+"created_at",
+{
+ascending:true
+}
+);
+
+
+if(error){
+throw error;
+}
+
+
+const count =
+data?.length || 0;
+
+
+document.getElementById(
+"commentCountTitle"
+).textContent =
+"("+count+")";
+
+
+if(!data ||
+data.length === 0){
+
+list.innerHTML =
+'<div class="empty">Hakuna comment bado. Kuwa wa kwanza!</div>';
+
+return;
+
+}
+
+
+let html = "";
+
+
+for(const comment of data){
+
+const commentText =
+escapeHTML(
+comment.comment || ""
+);
+
+
+const name =
+escapeHTML(
+comment.name || "ZANGO User"
+);
+
+
+const canDelete =
+currentUser &&
+currentUser.id ===
+comment.user_id;
+
+
+html += `
+
+<div class="comment-item">
+
+<div class="comment-avatar">
+
+${escapeHTML(
+(name || "Z")
+.substring(0,2)
+.toUpperCase()
+)}
+
+</div>
+
+<div class="comment-content">
+
+<div class="comment-author">
+${name}
+</div>
+
+<div class="comment-text">
+${commentText}
+</div>
+
+<div class="comment-time">
+
+${formatDate(comment.created_at)}
+
+${canDelete ? `
+
+<button
+onclick="deleteComment('${comment.id}')"
+class="ml-2 text-red-500">
+
+Delete
+
+</button>
+
+` : ""}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+list.innerHTML = html;
+
+list.scrollTop =
+list.scrollHeight;
+
+
+}catch(error){
+
+console.error(error);
+
+list.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   SEND COMMENT
+================================================== */
+
+async function sendComment(){
+
+if(!currentUser){
+
+alert(
+"Ingia kwanza ili uweze ku-comment."
+);
+
+return;
+
+}
+
+
+if(!currentCommentPostId){
+return;
+}
+
+
+const input =
+document.getElementById(
+"commentInput"
+);
+
+const text =
+input.value.trim();
+
+
+if(!text){
+return;
+}
+
+
+try{
+
+const profile =
+await getUserProfile();
+
+const name =
+profile?.name ||
+currentUser.user_metadata?.name ||
+"ZANGO User";
+
+
+const {error} =
+await supabaseClient
+.from("zango_comments")
+.insert({
+
+post_id:currentCommentPostId,
+user_id:currentUser.id,
+name:name,
+comment:text
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+input.value = "";
+
+
+await renderComments();
+
+await refreshCommentCount(
+currentCommentPostId
+);
+
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Comment haijatumwa: "+
+error.message
+);
+
+}
+
+}
+
+
+/* ==================================================
+   DELETE COMMENT
+================================================== */
+
+async function deleteComment(id){
+
+if(!currentUser){
+return;
+}
+
+
+try{
+
+const {error} =
+await supabaseClient
+.from("zango_comments")
+.delete()
+.eq("id",id)
+.eq("user_id",currentUser.id);
+
+
+if(error){
+throw error;
+}
+
+
+await renderComments();
+
+
+if(currentCommentPostId){
+
+await refreshCommentCount(
+currentCommentPostId
+);
+
+}
+
+
+}catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
+}
+
+
+async function refreshCommentCount(postId){
+
+const count =
+await getCommentCount(postId);
+
+
+const element =
+document.getElementById(
+"comment-count-"+postId
+);
+
+
+if(element){
+element.textContent = count;
+}
+
+
+const title =
+document.getElementById(
+"commentCountTitle"
+);
+
+
+if(title){
+title.textContent =
+"("+count+")";
+}
+
+}
+
+
+/* ==================================================
+   SHARE
+================================================== */
+
+async function sharePost(postId){
+
+const url =
+window.location.href+
+"#post-"+postId;
+
+
+if(navigator.share){
+
+try{
+
+await navigator.share({
+
+title:"ZANGO TZ",
+text:"Angalia post hii kwenye ZANGO Social",
+url:url
+
+});
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}else{
+
+try{
+
+await navigator.clipboard.writeText(url);
+
+alert("Link imekopiwa.");
+
+}catch(error){
+
+alert(url);
+
+}
+
+}
+
+}
+
+
+/* ==================================================
+   VIDEO
+================================================== */
+
+async function uploadVideo(){
+
+if(!currentUser){
+
+alert(
+"Ingia kwanza ili upload video."
+);
+
+showPage("profile");
+
+return;
+
+}
+
+
+const file =
+document.getElementById(
+"videoFile"
+).files[0];
+
+const message =
+document.getElementById(
+"videoMessage"
+);
+
+
+if(!file){
+
+message.innerHTML =
+'<div class="error">Chagua video.</div>';
+
+return;
+
+}
+
+
+try{
+
+const dataURL =
+await fileToDataURL(file);
+
+
+const profile =
+await getUserProfile();
+
+
+const name =
+profile?.name ||
+"ZANGO User";
+
+
+const {error} =
+await supabaseClient
+.from("zango_videos")
+.insert({
+
+user_id:currentUser.id,
+name:name,
+video_url:dataURL
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+message.innerHTML =
+'<div class="success">Video imeongezwa.</div>';
+
+
+renderVideos()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+message.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+async function renderVideos(){
+
+const container =
+document.getElementById(
+"videosContainer"
+);
+
+
+if(!container ||
+!supabaseClient){
+
+return;
+
+}
+
+
+try{
+
+const {data,error} =
+await supabaseClient
+.from("zango_videos")
+.select("*")
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+
+if(error){
+throw error;
+}
+
+
+if(!data ||
+data.length === 0){
+
+container.innerHTML =
+'<div class="empty">Hakuna video bado.</div>';
+
+return;
+
+}
+
+
+let html = "";
+
+
+for(const video of data){
+
+html += `
+
+<div class="card">
+
+<div class="font-bold text-sm mb-2">
+
+${escapeHTML(
+video.name || "ZANGO User"
+)}
+
+</div>
+
+<div class="video-box">
+
+<video
+controls
+playsinline
+src="${escapeAttribute(video.video_url)}">
+</video>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+container.innerHTML = html;
+
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   CHAT
+================================================== */
+
+async function sendChat(){
+
+if(!currentUser){
+
+alert(
+"Ingia kwanza kutumia Chat."
+);
+
+showPage("profile");
+
+return;
+
+}
+
+
+const input =
+document.getElementById(
+"chatInput"
+);
+
+const text =
+input.value.trim();
+
+
+if(!text){
+return;
+}
+
+
+try{
+
+const profile =
+await getUserProfile();
+
+
+const name =
+profile?.name ||
+"ZANGO User";
+
+
+const {error} =
+await supabaseClient
+.from("zango_chats")
+.insert({
+
+user_id:currentUser.id,
+name:name,
+message:text
+
+});
+
+
+if(error){
+throw error;
+}
+
+
+input.value = "";
+
+renderChats()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
+}
+
+
+async function renderChats(){
+
+const container =
+document.getElementById(
+"chatList"
+);
+
+
+if(!container ||
+!supabaseClient){
+
+return;
+
+}
+
+
+try{
+
+const {data,error} =
+await supabaseClient
+.from("zango_chats")
+.select("*")
+.order(
+"created_at",
+{
+ascending:true
+}
+);
+
+
+if(error){
+throw error;
+}
+
+
+if(!data ||
+data.length === 0){
+
+container.innerHTML =
+'<div class="empty">Hakuna ujumbe bado.</div>';
+
+return;
+
+}
+
+
+let html = "";
+
+
+for(const chat of data){
+
+html += `
+
+<div class="chat-message">
+
+<div class="chat-name">
+
+${escapeHTML(
+chat.name || "ZANGO User"
+)}
+
+</div>
+
+<div class="chat-text">
+
+${escapeHTML(
+chat.message || ""
+)}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+container.innerHTML = html;
+
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML =
+'<div class="error">'+
+escapeHTML(error.message)+
+'</div>';
+
+}
+
+}
+
+
+/* ==================================================
+   REALTIME
+================================================== */
+
+function startRealtime(){
+
+if(!supabaseClient){
+return;
+}
+
+
+if(realtimeChannel){
+return;
+}
+
+
+try{
+
+realtimeChannel =
+supabaseClient
+.channel("zango-live")
+
+.on(
+
+"postgres_changes",
+
+{
+event:"*",
+schema:"public",
+table:"zango_posts"
+},
+
+function(){
+
+renderPosts()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+}
+
+)
+
+.on(
+
+"postgres_changes",
+
+{
+event:"*",
+schema:"public",
+table:"zango_comments"
+},
+
+function(){
+
+if(currentCommentPostId){
+
+renderComments()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+refreshCommentCount(
+currentCommentPostId
+);
+
+}
+
+renderPosts()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+}
+
+)
+
+.on(
+
+"postgres_changes",
+
+{
+event:"*",
+schema:"public",
+table:"zango_post_likes"
+},
+
+function(){
+
+renderPosts()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+}
+
+)
+
+.on(
+
+"postgres_changes",
+
+{
+event:"*",
+schema:"public",
+table:"zango_chats"
+},
+
+function(){
+
+renderChats()
+.catch(function(error){
+
+console.error(error);
+
+});
+
+}
+
+)
+
+.subscribe();
+
+
+}catch(error){
+
+console.error(
+"Realtime error:",
+error
+);
+
+}
+
+}
+
+
+/* ==================================================
+   AUTH LISTENER
+================================================== */
+
+function startAuthListener(){
+
+if(!supabaseClient){
+return;
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+
+async function(
+event,
+session
+){
+
+currentUser =
+session?.user ||
+null;
+
+
+try{
+
+await updateAuthUI();
+
+}catch(error){
+
+console.error(
+"Auth UI error:",
+error
+);
+
+}
+
+}
+
+);
+
+}
+
+
+/* ==================================================
+   FILE READER
+================================================== */
+
+function fileToDataURL(file){
+
+return new Promise(
+function(resolve,reject){
+
+const reader =
+new FileReader();
+
+
+reader.onload =
+function(){
+
+resolve(reader.result);
+
+};
+
+
+reader.onerror =
+function(error){
+
+reject(error);
+
+};
+
+
+reader.readAsDataURL(file);
+
+});
+
+}
+
+
+/* ==================================================
+   ESCAPE
+================================================== */
+
+function escapeHTML(value){
+
+return String(
+value ?? ""
+)
+
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+return escapeHTML(value);
+
+}
+
+
+/* ==================================================
+   DATE
+================================================== */
+
+function formatDate(date){
+
+if(!date){
+return "";
+}
+
+
+try{
+
+return new Date(date)
+.toLocaleString(
+"sw-TZ",
+{
+dateStyle:"medium",
+timeStyle:"short"
+}
+);
+
+
+}catch(error){
+
+return date;
+
+}
+
+}
+
+
+/* ==================================================
+   COMMENT ENTER
+================================================== */
+
+document
+.getElementById("commentInput")
+.addEventListener(
+"keydown",
+function(event){
+
+if(
+event.key === "Enter" &&
+!event.shiftKey
+){
+
+event.preventDefault();
+
+sendComment();
+
+}
+
+});
+
+
+/* ==================================================
+   CHAT ENTER
+================================================== */
+
+document
+.getElementById("chatInput")
+.addEventListener(
+"keydown",
+function(event){
+
+if(event.key === "Enter"){
+
+event.preventDefault();
+
+sendChat();
+
+}
+
+});
+
+
+/* ==================================================
+   MODAL CLICK
+================================================== */
+
+document
+.getElementById("commentModal")
+.addEventListener(
+"click",
+function(event){
+
+if(event.target === this){
+
+closeComments();
+
+}
+
+});
+
+
+/* ==================================================
+   ESCAPE MODAL
+================================================== */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+if(event.key === "Escape"){
+
+closeComments();
+
+}
+
+});
+
+
+/* ==================================================
+   SERVICE WORKER
+================================================== */
+
+async function registerServiceWorker(){
+
+/*
+  FIX:
+  Hapa awali kulikuwa na:
+  !"serviceWorker" in navigator
+
+  Hiyo ni JavaScript precedence bug.
+
+  Sahihi ni:
+  !("serviceWorker" in navigator)
+*/
+
+if(!("serviceWorker" in navigator)){
+
+console.warn(
+"Service Worker hai-supportwi kwenye browser hii."
+);
+
+return;
+
+}
+
+
+try{
+
+const registration =
+await navigator.serviceWorker.register(
+"/service-worker.js",
+{
+scope:"/"
+}
+);
+
+
+console.log(
+"ZANGO Service Worker registered:",
+registration.scope
+);
+
+
+}catch(error){
+
+/*
+  Service Worker ikigoma,
+  HAIFAI kuzuia app.
+*/
+
+console.warn(
+"Service Worker haijasajiliwa:",
+error
+);
+
+}
+
+}
+
+
+/* ==================================================
+   START APP
+================================================== */
+
+async function startApp(){
+
+try{
+
+/*
+  STEP 1
+  Anzisha Supabase
+*/
+
+setLoadingStatus(
+"Inaanzisha Supabase..."
+);
+
+
+const success =
+await initSupabase();
+
+
+if(!success){
+
+throw new Error(
+"Supabase library haijapatikana. Hakikisha internet ipo na CDN haijazuiwa."
+);
+
+}
+
+
+/*
+  STEP 2
+  MUHIMU:
+
+  Home ifunguke sasa hivi.
+
+  HATUSUBIRII:
+  - login
+  - posts
+  - videos
+  - chats
+*/
+
+showPage("mwanzo");
+
+hideLoading();
+
+
+console.log(
+"ZANGO HOME imefunguka."
+);
+
+
+/*
+  STEP 3
+  Service Worker ianze
+  bila kuzuia app.
+*/
+
+registerServiceWorker();
+
+
+/*
+  STEP 4
+  Anzisha Auth na Realtime
+*/
+
+startAuthListener();
+
+startRealtime();
+
+
+/*
+  STEP 5
+  Kagua session
+  lakini background.
+*/
+
+supabaseClient.auth
+.getSession()
+.then(function(sessionResult){
+
+currentUser =
+sessionResult?.data?.session?.user ||
+null;
+
+return updateAuthUI();
+
+})
+.catch(function(error){
+
+console.error(
+"Session error:",
+error
+);
+
+});
+
+
+/*
+  STEP 6
+  Load Social background
+*/
+
+renderPosts()
+.catch(function(error){
+
+console.error(
+"Posts loading error:",
+error
+);
+
+});
+
+
+/*
+  STEP 7
+  Load Video background
+*/
+
+renderVideos()
+.catch(function(error){
+
+console.error(
+"Videos loading error:",
+error
+);
+
+});
+
+
+/*
+  STEP 8
+  Load Chat background
+*/
+
+renderChats()
+.catch(function(error){
+
+console.error(
+"Chats loading error:",
+error
+);
+
+
+});
+
+
+console.log(
+"ZANGO started successfully."
+);
+
+
+}catch(error){
+
+console.error(
+"ZANGO START ERROR:",
+error
+);
+
+
+/*
+  Hapa tu ndipo loading error
+  itaonekana.
+
+  Kama Supabase yenyewe
+  haijaanza kabisa.
+*/
+
+setLoadingStatus(
+"ZANGO haikuweza kuanza."
+);
+
+
+showLoadingError(
+"Imeshindikana kuanzisha app. "+
+(error?.message || "Unknown error")
+);
+
+}
+
+}
+
+
+/* ==================================================
+   START WHEN DOM IS READY
+================================================== */
+
+if(
+document.readyState === "loading"
+){
+
+document.addEventListener(
+"DOMContentLoaded",
+startApp,
+{
+once:true
+}
+);
+
+}else{
+
+startApp();
+
+}
+
+</script>
+
+</body>
+
+</html>
